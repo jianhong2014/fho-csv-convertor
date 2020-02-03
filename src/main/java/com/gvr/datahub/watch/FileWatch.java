@@ -3,7 +3,9 @@ package com.gvr.datahub.watch;
 import com.orpak.fho.service.FileCharsetConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.io.File;
 import java.nio.file.FileSystems;
 import java.nio.file.Paths;
@@ -14,7 +16,7 @@ import java.nio.file.WatchService;
 import java.util.HashSet;
 import java.util.Set;
 
-
+@Service
 public class FileWatch {
 
     private static final Logger logger = LoggerFactory.getLogger(FileWatch.class);
@@ -22,8 +24,9 @@ public class FileWatch {
     private static WatchService watchService;
     private static String filePath;
 
+    @PostConstruct
     public void watch() {
-
+         logger.info("start file watch");
         //目录全路径
         filePath = "C:\\HongJianWork\\HJOldPc\\fho\\";
 
@@ -92,7 +95,7 @@ public class FileWatch {
         w.watch();
 
         // 假装做一些事情，延迟。
-        Thread.sleep(8000000000000l);
+      //  Thread.sleep(8000000000000l);
 
     }
 }
