@@ -7,13 +7,7 @@ import java.nio.charset.UnsupportedCharsetException;
 public class FileCharsetConverter {
 
     public static void main(String[] args) throws Exception {
-        convert("C:\\HongJianWork\\HJOldPc\\fho\\VehicleListReport.csv",
-                "GB2312", "UTF-8", new FilenameFilter() {
-                    @Override
-                    public boolean accept(File dir, String name) {
-                        return name.endsWith("csv");
-                    }
-                });
+        System.out.println(System.getProperty("user.home"));
     }
 
     public static void gbk2utf(String fileName){

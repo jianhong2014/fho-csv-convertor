@@ -1,6 +1,8 @@
 package com.gvr.datahub.watch;
 
 import com.orpak.fho.service.FileCharsetConverter;
+
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -22,13 +24,20 @@ public class FileWatch {
     private static final Logger logger = LoggerFactory.getLogger(FileWatch.class);
 
     private static WatchService watchService;
-    private static String filePath;
+    private static String filePath = System.getProperty("user.home")+"\\Downloads";
+    public static String baseDirectory() {
+        String csvFileDir = System.getProperty("csvDir");
+        if(StringUtils.isAnyBlank(csvFileDir)){
+            csvFileDir = filePath;
+        }
+        return csvFileDir;
+    }
 
     @PostConstruct
     public void watch() {
          logger.info("start file watch");
         //目录全路径
-        filePath = "C:\\HongJianWork\\HJOldPc\\fho\\";
+        filePath = baseDirectory();
 
         try {
             // 获取文件系统的WatchService对象
@@ -61,7 +70,7 @@ public class FileWatch {
                         }
                         File file = new File(lastFile);
                         if(file.exists()){
-                            Thread.sleep(1000);
+                            Thread.sleep(2000);
                             FileCharsetConverter.addBom(lastFile);
                         }
                         // 重设WatchKey
